@@ -9,7 +9,8 @@ import Foundation
 import SwiftUI  // Image is in swiftUI
 import CoreLocation // required for CLLocationCoordinate2D
 
-struct Landmark: Hashable, Codable {
+// add Identifiable for List simplification
+struct Landmark: Hashable, Codable, Identifiable {
     
     var id: Int
     var name: String
