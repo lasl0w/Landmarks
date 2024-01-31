@@ -7,12 +7,13 @@
 
 import Foundation
 
+// get's run on app boot
 var landmarks: [Landmark] = load("landmarkData.json")
 
 
 // generic function - could pass in any decodable type and return that type (not just json... although we are using the jsondecoder)
 func load<T: Decodable>(_ filename: String) -> T {
-    
+    print("Calling the LOAD function")
     let data: Data
     
     // this will be of type URL

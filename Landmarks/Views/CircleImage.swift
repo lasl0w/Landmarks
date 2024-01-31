@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct CircleImage: View {
+    
+    // pass in image from json data
+    var image: Image
+    
     var body: some View {
-        Image("turtlerock")
+        image
             .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
         // before the stroke defaults to black fill
             .overlay {
@@ -21,5 +25,5 @@ struct CircleImage: View {
 }
 
 #Preview {
-    CircleImage()
+    CircleImage(image: Image("turtlerock"))
 }
