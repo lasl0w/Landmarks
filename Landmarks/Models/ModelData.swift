@@ -7,8 +7,14 @@
 
 import Foundation
 
-// get's run on app boot
-var landmarks: [Landmark] = load("landmarkData.json")
+@Observable
+class ModelData {
+    
+    // get's run on app boot (when outside the class)
+    // now that it's in a class, we need to instantiate it with an EO
+    var landmarks: [Landmark] = load("landmarkData.json")
+}
+
 
 
 // generic function - could pass in any decodable type and return that type (not just json... although we are using the jsondecoder)
