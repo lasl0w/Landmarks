@@ -13,6 +13,9 @@ class ModelData {
     // get's run on app boot (when outside the class)
     // now that it's in a class, we need to instantiate it with an EO
     var landmarks: [Landmark] = load("landmarkData.json")
+    
+    // now lets load our hikes
+    var hikes: [Hike] = load("hikeData.json")
 }
 
 
