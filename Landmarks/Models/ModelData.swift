@@ -16,6 +16,14 @@ class ModelData {
     
     // now lets load our hikes
     var hikes: [Hike] = load("hikeData.json")
+    
+    // computed categories dictionary - category names as keys.
+    var categories: [String: [Landmark]] {
+        Dictionary(
+            grouping: landmarks,
+            by: {$0.category.rawValue}
+        )
+    }
 }
 
 
