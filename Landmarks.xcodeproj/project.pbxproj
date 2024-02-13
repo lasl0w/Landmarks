@@ -112,9 +112,9 @@
 		F16822822B60CF35001AF7D1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F1FBF6EE2B5DE4CF00391B0C /* ContentView.swift */,
 				F13A1FEB2B73458100BD1D60 /* Categories */,
 				F13A1FE22B700AE600BD1D60 /* Hikes */,
-				F1FBF6EE2B5DE4CF00391B0C /* ContentView.swift */,
 				F1A1BF532B6DE6D70025C0EA /* Badges */,
 				F1A1BF472B6B5F240025C0EA /* Landmarks */,
 				F1A1BF482B6B5F2D0025C0EA /* Helper */,

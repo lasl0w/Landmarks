@@ -17,6 +17,13 @@ class ModelData {
     // now lets load our hikes
     var hikes: [Hike] = load("hikeData.json")
     
+    // computed isFeatured array to showcase featured landmarks
+    var featured: [Landmark] {
+        // if it's just a single line computed property you can omit the 'return' stmt right?
+        landmarks.filter { $0.isFeatured }
+    }
+    
+    
     // computed categories dictionary - category names as keys.
     var categories: [String: [Landmark]] {
         Dictionary(
