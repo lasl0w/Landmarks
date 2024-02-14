@@ -11,6 +11,7 @@ struct CategoriesHome: View {
     
     // we need access to the categories (and other landmark data soon)
     @Environment(ModelData.self) var modelData
+    @State private var showingProfile = false
     
     var body: some View {
         NavigationSplitView {
@@ -37,7 +38,22 @@ struct CategoriesHome: View {
                 }
                 .listRowInsets(EdgeInsets())
             }
+            // mods on the list
+            .listStyle(.inset)
+            // .inset takes advantage of max width. allows for 2.25 items to be shown on horizontal lists.  indicator to user of scrolling
                 .navigationTitle("Featured")
+                .toolbar {
+                    Button {
+                        showingProfile.toggle()
+                    } label: {
+                        Label("User Profile", systemImage: "person.crop.circle")
+                    }
+                }
+            // mods on the toolbar
+                .sheet(isPresented: $showingProfile) {
+                    ProfileHost()
+                        .environment(modelData)
+                }
         } detail: {
             Text("Select a landmark")
         }
