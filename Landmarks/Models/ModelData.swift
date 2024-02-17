@@ -16,6 +16,8 @@ class ModelData {
     
     // now lets load our hikes
     var hikes: [Hike] = load("hikeData.json")
+    // create an instance that persists even after modelData is dismissed
+    var profile = Profile.default
     
     // computed isFeatured array to showcase featured landmarks
     var featured: [Landmark] {
