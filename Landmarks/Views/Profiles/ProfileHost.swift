@@ -11,7 +11,7 @@ import SwiftUI
 struct ProfileHost: View {
     
     //TODO: .editMode built in @EO object.  what else is there?
-    // allows read/write in the edit scope
+    // allows read/write in the edit scope.  storing editMode in the Environment makes it simple for multiple views to update when the user enters and exits edit mode
     @Environment(\.editMode) var editMode
     // note the edit view operates on a copy of itself until it commits the changes
     // read the users profile data from the environment
@@ -24,6 +24,15 @@ struct ProfileHost: View {
         //Text("Profile for: \(draftProfile.userName)")
         VStack(alignment: .leading, spacing: 20) {
             HStack {
+                // might have an editMode, might not
+                if editMode?.wrappedValue == .active {
+                    // If we are in editMode, add a Cancel button left of the spacer (left aligned)
+                    Button("Cancel", role: .cancel) {
+                        // if pressed, return our draftProfile edits back to the old profile and send us back to viewMode
+                        draftProfile = modelData.profile
+                        editMode?.animation().wrappedValue = .inactive
+                    }
+                }
                 Spacer()
                 // convenience button automatically available with the .editMode object
                 EditButton()
@@ -34,7 +43,17 @@ struct ProfileHost: View {
                 // we're not in editMode!
                 ProfileSummary(profile: modelData.profile)
             } else {
-                Text("Edit Placeholder")
+                // bound so the draftprofile will update the parent view
+                ProfileEditor(profile: $draftProfile)
+                    .onAppear {
+                        // TODO: isn't this redundant?
+                        draftProfile = modelData.profile
+                    }
+                    .onDisappear {
+                        // user tapped DONE!  odd that we don't just trigger off the Done event
+                        // set our edits in the draftProfile (our copy) to the main source profile
+                        modelData.profile = draftProfile
+                    }
             }
 
         }
