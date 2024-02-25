@@ -34,6 +34,11 @@ struct Landmark: Hashable, Codable, Identifiable {
         // loads from the asset catalog
         Image(imageName)
     }
+    
+    var featureImage: Image? {
+        // shorthand for "if isFeatured == true" is just "isFeatured" in a ternary
+        isFeatured ? Image(imageName + "_feature") : nil
+    }
     // private as it's used only to create the public computed property
     private var coordinates: Coordinates
     
