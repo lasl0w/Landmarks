@@ -16,15 +16,17 @@ struct CategoriesHome: View {
     var body: some View {
         NavigationSplitView {
             List {
-                modelData.featured[0].image
+                PageView(pages: modelData.featured.map {
+                    FeatureCard(landmark: $0)
+                })
                 // resizable expanded it to the container width (but it was skewed, not a square)
-                    .resizable()
+                //    .resizable()
                 // scaled to fill returned it to a square
-                    .scaledToFill()
+                //    .scaledToFill()
                 // .frame cut off some of the image top and made us flush with the list container
-                    .frame(height: 200)
+                //    .frame(height: 200)
                 // .clipped cropped a bit more but gave us some padding
-                    .clipped()
+                //    .clipped()
                 // set edgeInsets to zero so content can extend to the edge of the display (of the list container plus any child view padding)
                     .listRowInsets(EdgeInsets())
                 

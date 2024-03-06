@@ -11,6 +11,7 @@ import UIKit
 struct PageViewController<Page: View>: UIViewControllerRepresentable  {
     
     var pages: [Page]
+    @Binding var currentPage: Int
     
     func makeCoordinator() -> Coordinator {
         // instantiate the thing.  return is implied
@@ -26,6 +27,8 @@ struct PageViewController<Page: View>: UIViewControllerRepresentable  {
             navigationOrientation: .horizontal
             )
         pageViewController.dataSource = context.coordinator
+        // with the binding set in both directions, we can now show the correct page number after each swipe
+        pageViewController.delegate = context.coordinator
         
         return pageViewController
     }
@@ -33,10 +36,11 @@ struct PageViewController<Page: View>: UIViewControllerRepresentable  {
     func updateUIViewController(_ pageViewController: UIPageViewController, context: Context) {
         pageViewController.setViewControllers(
             //[UIHostingController(rootView: pages[0])], direction: .forward, animated: true)
-            [context.coordinator.controllers[0]], direction: .forward, animated: true)
+            // Now we need this to be the currentPage, instead of just the [0]
+            [context.coordinator.controllers[currentPage]], direction: .forward, animated: true)
     }
     
-    class Coordinator: NSObject, UIPageViewControllerDataSource {
+    class Coordinator: NSObject, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
         var parent: PageViewController
         
         // TODO: why do we call it, instead of just declaring the type
@@ -75,6 +79,19 @@ struct PageViewController<Page: View>: UIViewControllerRepresentable  {
                 return controllers.first
             }
             return controllers[index + 1]
+        }
+        
+        func pageViewController(
+            _ pageViewController: UIPageViewController,
+            didFinishAnimating finished: Bool,
+            previousViewControllers: [UIViewController],
+            transitionCompleted completed: Bool) {
+                // they stub out the func that conforms to the controller delegate
+                if completed,
+                    let visibleViewController = pageViewController.viewControllers?.first,
+                    let index = controllers.firstIndex(of: visibleViewController) {
+                    parent.currentPage = index
+                }
         }
     }
     
