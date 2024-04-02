@@ -8,17 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    // LandmarksApp entry already provides the .environment(ModelData()) at runtime, but preview needs it too.
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+            LandmarkList()
     }
 }
 
 #Preview {
     ContentView()
+        .environment(ModelData())
 }
